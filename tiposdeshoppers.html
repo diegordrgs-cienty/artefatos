@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Do E-commerce ao B2B Farmacêutico — Os 5 Tipos de Shoppers</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #F4F5F7;
+  color: #111827;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── COVER ─────────────────────────── */
+.cover {
+  background: #0C1220;
+  color: #fff;
+  padding: 72px 40px 60px;
+  text-align: center;
+}
+.cover-eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #D4006B;
+  margin-bottom: 20px;
+  padding: 5px 14px;
+  border: 1px solid rgba(212,0,107,.4);
+  border-radius: 20px;
+}
+.cover-title {
+  font-size: clamp(26px, 5vw, 42px);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  max-width: 680px;
+  margin: 0 auto 18px;
+}
+.cover-title em { color: #D4006B; font-style: normal; }
+.cover-subtitle {
+  font-size: 16px;
+  color: #94A3B8;
+  max-width: 540px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+}
+.cover-meta {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: #64748B;
+  border-top: 1px solid rgba(255,255,255,.08);
+  padding-top: 28px;
+}
+.cover-meta span { display: flex; align-items: center; gap: 6px; }
+
+/* ── PAGE LAYOUT ────────────────────── */
+.page { max-width: 820px; margin: 0 auto; padding: 0 24px 80px; }
+
+/* ── SECTIONS ───────────────────────── */
+.section { margin-top: 48px; }
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #D4006B;
+  margin-bottom: 12px;
+}
+
+/* ── INTRO ──────────────────────────── */
+.intro-box {
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid #E5E7EB;
+  padding: 28px 32px;
+  margin-top: 36px;
+}
+.intro-box p {
+  font-size: 15px;
+  color: #374151;
+  line-height: 1.75;
+}
+.intro-box p + p { margin-top: 12px; }
+
+/* ── OVERVIEW LIST ──────────────────── */
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+  gap: 10px;
+  margin-top: 20px;
+}
+.ov-card {
+  background: #fff;
+  border: 1px solid #E5E7EB;
+  border-radius: 10px;
+  padding: 14px;
+  text-align: center;
+}
+.ov-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: #0C1220; color: #fff;
+  font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 8px;
+}
+.ov-name { font-size: 12px; font-weight: 600; color: #1F2937; line-height: 1.3; }
+.ov-fit { margin-top: 6px; }
+
+/* ── SHOPPER CARDS ──────────────────── */
+.shopper {
+  background: #fff;
+  border: 1px solid #E5E7EB;
+  border-radius: 16px;
+  margin-top: 20px;
+  overflow: hidden;
+}
+.shopper-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 24px 18px;
+  border-bottom: 1px solid #F3F4F6;
+  flex-wrap: wrap;
+}
+.shopper-num {
+  width: 36px; height: 36px; border-radius: 50%;
+  font-size: 15px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; color: #fff;
+}
+.shopper-name { font-size: 17px; font-weight: 700; color: #111827; flex: 1; }
+.fit-badge {
+  font-size: 11px; font-weight: 700;
+  padding: 5px 12px; border-radius: 20px;
+  white-space: nowrap;
+}
+.fit-alto    { background: #ECFDF5; color: #065F46; }
+.fit-mod     { background: #FEF3C7; color: #92400E; }
+.fit-baixo   { background: #FFF7ED; color: #9A3412; }
+.fit-na      { background: #F3F4F6; color: #4B5563; }
+
+.shopper-body { padding: 0; }
+.cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+@media (max-width: 620px) { .cols { grid-template-columns: 1fr; } }
+
+.col {
+  padding: 22px 24px;
+}
+.col + .col {
+  border-left: 1px solid #F3F4F6;
+  background: #FAFAFA;
+}
+@media (max-width: 620px) {
+  .col + .col { border-left: none; border-top: 1px solid #F3F4F6; }
+}
+.col-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 1.2px;
+  text-transform: uppercase; color: #9CA3AF; margin-bottom: 10px;
+}
+.col p { font-size: 13px; color: #374151; line-height: 1.65; }
+.col p + p { margin-top: 8px; }
+
+.shopper-stat {
+  margin: 0 24px 20px;
+  background: #F9FAFB;
+  border: 1px solid #E5E7EB;
+  border-radius: 10px;
+  padding: 14px 18px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.stat-num {
+  font-size: 26px; font-weight: 800; line-height: 1;
+  white-space: nowrap;
+}
+.stat-desc { font-size: 12px; color: #6B7280; line-height: 1.5; margin-top: 2px; }
+.stat-source { font-size: 10px; color: #9CA3AF; margin-top: 4px; font-style: italic; }
+
+.shopper-insight {
+  border-top: 1px solid #F3F4F6;
+  padding: 16px 24px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.insight-icon {
+  flex-shrink: 0; margin-top: 1px;
+  font-size: 13px;
+}
+.shopper-insight p { font-size: 12px; color: #4B5563; line-height: 1.6; }
+.shopper-insight strong { color: #111827; }
+
+/* ── COLORS PER SHOPPER ──────────────── */
+.s1 .shopper-num { background: #059669; }
+.s1 { border-left: 4px solid #059669; }
+.s1 .stat-num { color: #059669; }
+
+.s2 .shopper-num { background: #7C3AED; }
+.s2 { border-left: 4px solid #7C3AED; }
+.s2 .stat-num { color: #7C3AED; }
+
+.s3 .shopper-num { background: #0284C7; }
+.s3 { border-left: 4px solid #0284C7; }
+.s3 .stat-num { color: #0284C7; }
+
+.s4 .shopper-num { background: #D97706; }
+.s4 { border-left: 4px solid #D97706; }
+.s4 .stat-num { color: #D97706; }
+
+.s5 .shopper-num { background: #6B7280; }
+.s5 { border-left: 4px solid #D1D5DB; }
+.s5 .stat-num { color: #6B7280; }
+
+/* ── SUMMARY TABLE ──────────────────── */
+.table-wrap {
+  background: #fff;
+  border: 1px solid #E5E7EB;
+  border-radius: 14px;
+  overflow: hidden;
+  margin-top: 20px;
+}
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th {
+  background: #0C1220; color: #fff;
+  padding: 12px 16px; text-align: left;
+  font-size: 11px; font-weight: 700; letter-spacing: .5px;
+}
+td { padding: 13px 16px; border-bottom: 1px solid #F3F4F6; vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+tr:nth-child(even) td { background: #FAFAFA; }
+.td-fit { white-space: nowrap; font-weight: 700; font-size: 11px; }
+.td-name { font-weight: 600; color: #111827; }
+.td-ev { color: #4B5563; line-height: 1.5; }
+
+/* ── CONTEXT BOX ────────────────────── */
+.context-box {
+  background: #0C1220;
+  color: #fff;
+  border-radius: 14px;
+  padding: 28px 32px;
+  margin-top: 20px;
+}
+.context-box h3 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: #F1F5F9; }
+.context-box p { font-size: 13px; color: #94A3B8; line-height: 1.65; }
+.context-box p + p { margin-top: 10px; }
+.context-box .highlight { color: #D4006B; font-weight: 600; }
+
+/* ── CONCLUSION ─────────────────────── */
+.conclusion {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+.conclusion-card {
+  background: #fff;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+.conclusion-card h4 { font-size: 13px; font-weight: 700; color: #111827; margin-bottom: 6px; }
+.conclusion-card p { font-size: 12px; color: #6B7280; line-height: 1.55; }
+
+/* ── SOURCES ────────────────────────── */
+.sources {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid #E5E7EB;
+}
+.sources h4 { font-size: 12px; font-weight: 700; color: #6B7280; letter-spacing: .5px; text-transform: uppercase; margin-bottom: 10px; }
+.sources p { font-size: 11px; color: #9CA3AF; line-height: 1.7; }
+
+/* ── PRINT ──────────────────────────── */
+@media print {
+  body { background: #fff; }
+  .cover { padding: 40px 24px 32px; }
+  .shopper { break-inside: avoid; }
+  .cols { grid-template-columns: 1fr 1fr !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-eyebrow">Análise de comportamento — B2B Farmacêutico</div>
+  <h1 class="cover-title">Os 5 Tipos de Shoppers do E-commerce aplicados ao <em>comprador de farmácia</em></h1>
+  <p class="cover-subtitle">Como o framework da Nielsen Norman Group se traduz para o contexto B2B de quem compra estoque para farmácias de pequeno e médio porte no Brasil</p>
+  <div class="cover-meta">
+    <span>📚 Base: Framework NN/g (Nielsen Norman Group)</span>
+    <span>🇧🇷 Contexto: Varejo farmacêutico brasileiro</span>
+    <span>📊 Dados: IFEPEC/Febrafar, UNICAMP, InovaFarma, Sincofarma SP</span>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- INTRO -->
+  <div class="section">
+    <div class="section-label">Introdução</div>
+    <div class="intro-box">
+      <p>A Nielsen Norman Group identificou cinco perfis de compradores para o e-commerce B2C, cada um com motivações, comportamentos e necessidades distintas. O framework é amplamente usado para orientar decisões de design e produto em plataformas de compra online.</p>
+      <p>A pergunta central deste documento: <strong>esses perfis se traduzem para o contexto B2B de um comprador de farmácia</strong> — a pessoa que adquire produtos para reabastecer o estoque do estabelecimento, negociando diretamente com distribuidoras e indústrias?</p>
+      <p>A resposta não é direta. O contexto B2B farmacêutico tem características muito específicas: compras orientadas por demanda conhecida (Curva ABC, ERP), relações comerciais de longo prazo, negociação de condições (preço, prazo, bonificação) e ausência de decisão por impulso. Alguns perfis se encaixam muito bem nesse cenário. Outros, praticamente não existem.</p>
+    </div>
+  </div>
+
+  <!-- OVERVIEW GRID -->
+  <div class="section">
+    <div class="section-label">Os 5 perfis — visão geral</div>
+    <div class="overview-grid">
+      <div class="ov-card">
+        <div class="ov-num" style="background:#059669">1</div>
+        <div class="ov-name">Focado no produto</div>
+        <div class="ov-fit"><span class="fit-badge fit-alto">Muito alto</span></div>
+      </div>
+      <div class="ov-card">
+        <div class="ov-num" style="background:#7C3AED">2</div>
+        <div class="ov-name">Browser / Navegador</div>
+        <div class="ov-fit"><span class="fit-badge fit-baixo">Baixo</span></div>
+      </div>
+      <div class="ov-card">
+        <div class="ov-num" style="background:#0284C7">3</div>
+        <div class="ov-name">Pesquisador</div>
+        <div class="ov-fit"><span class="fit-badge fit-alto">Alto e crescente</span></div>
+      </div>
+      <div class="ov-card">
+        <div class="ov-num" style="background:#D97706">4</div>
+        <div class="ov-name">Caçador de pechinchas</div>
+        <div class="ov-fit"><span class="fit-badge fit-alto">Muito alto</span></div>
+      </div>
+      <div class="ov-card">
+        <div class="ov-num" style="background:#6B7280">5</div>
+        <div class="ov-name">Comprador único</div>
+        <div class="ov-fit"><span class="fit-badge fit-na">Não se aplica</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ────────────── SHOPPER 1 ────────────── -->
+  <div class="section">
+    <div class="section-label">Perfil 1 de 5</div>
+    <div class="shopper s1">
+      <div class="shopper-head">
+        <div class="shopper-num">1</div>
+        <div class="shopper-name">Focado no produto</div>
+        <span class="fit-badge fit-alto">✓ Muito alto encaixe</span>
+      </div>
+      <div class="shopper-body">
+        <div class="cols">
+          <div class="col">
+            <div class="col-label">No e-commerce — NN/g</div>
+            <p>Já sabe exatamente o que quer comprar. Pesquisou antes (frequentemente em lojas físicas, num comportamento de "showrooming") e só quer localizar o item, confirmar que é o certo e finalizar a compra com o mínimo de fricção possível.</p>
+            <p>Não lê descrições detalhadas, não explora o catálogo. Vai direto ao ponto. O que mais valoriza é velocidade e ausência de ruído no caminho até o checkout.</p>
+          </div>
+          <div class="col">
+            <div class="col-label">No B2B farmacêutico</div>
+            <p>É o perfil dominante. O comprador já conhece seu mix — medicamentos de alta rotatividade, itens de reposição periódica — e quer reabastecer o que acabou ou está próximo do ponto de pedido.</p>
+            <p>A metodologia da Curva ABC é o equivalente direto: o software da farmácia identifica automaticamente quais produtos precisam de reposição, e o comprador age a partir dessa lista. A negociação é com fornecedores conhecidos, dentro de condições já estabelecidas.</p>
+            <p>Nas plataformas digitais de compra B2B, esse perfil usa importação de lista do ERP ou busca direta por EAN/nome — sem intenção de explorar além do necessário.</p>
+          </div>
+        </div>
+        <div class="shopper-stat">
+          <div>
+            <div class="stat-num">68%</div>
+          </div>
+          <div>
+            <div class="stat-desc">das compras em farmácias são motivadas por prescrição médica ou demanda conhecida — o comprador B2B age sobre essa mesma demanda previsível ao montar o estoque</div>
+            <div class="stat-source">IFEPEC / Febrafar + Unicamp — Pesquisa Anual de Comportamento do Consumidor em Farmácias no Brasil (2021–2023)</div>
+          </div>
+        </div>
+        <div class="shopper-insight">
+          <span class="insight-icon">→</span>
+          <p><strong>Implicação estratégica:</strong> Plataformas que suportam importação rápida de lista do ERP, recompra com 1 clique e busca eficiente por EAN atendem diretamente esse perfil. Reduzir o número de etapas até o envio do pedido é o principal alavancador de adoção para esse comprador.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ────────────── SHOPPER 2 ────────────── -->
+  <div class="section">
+    <div class="section-label">Perfil 2 de 5</div>
+    <div class="shopper s2">
+      <div class="shopper-head">
+        <div class="shopper-num">2</div>
+        <div class="shopper-name">Browser / Navegador</div>
+        <span class="fit-badge fit-baixo">⚠ Baixo encaixe</span>
+      </div>
+      <div class="shopper-body">
+        <div class="cols">
+          <div class="col">
+            <div class="col-label">No e-commerce — NN/g</div>
+            <p>Comprador casual, sem objetivo claro. Visita o site por entretenimento, inspiração ou para acompanhar tendências — não necessariamente para comprar agora. Pode estar sonhando com uma compra futura ou simplesmente explorando o que está disponível.</p>
+            <p>O "browsing" é uma atividade em si, com valor independente da conversão imediata. Esse perfil volta para ver novidades e pode ser convertido com o estímulo certo no momento certo.</p>
+          </div>
+          <div class="col">
+            <div class="col-label">No B2B farmacêutico</div>
+            <p>É o perfil de menor aderência. A visita ao distribuidor (física ou digital) é quase sempre utilitária e orientada a uma tarefa específica — ninguém "navega" pelo catálogo de uma distribuidora por entretenimento.</p>
+            <p>Porém, existe um equivalente parcial e específico do contexto B2B: a visita do representante comercial, que apresenta lançamentos e campanhas de forma não solicitada. O comprador pode ouvir sobre um produto que não estava procurando e decidir testá-lo no mix.</p>
+            <p>Em plataformas digitais, o equivalente seria seções de "lançamentos" ou "mais vendidos por farmácias com perfil similar" — mecanismos ainda pouco explorados no setor.</p>
+          </div>
+        </div>
+        <div class="shopper-stat">
+          <div>
+            <div class="stat-num">30,2%</div>
+          </div>
+          <div>
+            <div class="stat-desc">do mix de compras nas farmácias é composto por não-medicamentos — a única categoria onde há alguma margem para comportamento de descoberta/browsing no contexto B2B</div>
+            <div class="stat-source">IFEPEC / Febrafar — Pesquisa sobre Comportamento do Consumidor em Farmácias no Brasil, 2024</div>
+          </div>
+        </div>
+        <div class="shopper-insight">
+          <span class="insight-icon">→</span>
+          <p><strong>Implicação estratégica:</strong> O comportamento de descoberta no B2B farmacêutico acontece principalmente via representantes comerciais — não via plataformas digitais. Há uma oportunidade clara de capturar esse comportamento digitalmente, especialmente na categoria de perfumaria, dermocosméticos e suplementos, onde a demanda da farmácia é menos previsível e mais suscetível a novidades.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ────────────── SHOPPER 3 ────────────── -->
+  <div class="section">
+    <div class="section-label">Perfil 3 de 5</div>
+    <div class="shopper s3">
+      <div class="shopper-head">
+        <div class="shopper-num">3</div>
+        <div class="shopper-name">Pesquisador</div>
+        <span class="fit-badge fit-alto">↑ Alto e crescente</span>
+      </div>
+      <div class="shopper-body">
+        <div class="cols">
+          <div class="col">
+            <div class="col-label">No e-commerce — NN/g</div>
+            <p>Orientado a um objetivo de compra, mas o processo pode levar dias ou semanas. Está coletando informações sobre produtos e preços em múltiplos sites antes de decidir. Compara especificações, lê avaliações e busca confiança antes de converter.</p>
+            <p>Para esse perfil, o site que oferece mais informação organizada, histórico de avaliações e comparação fácil tem vantagem competitiva real. O carrinho pode ser usado como "lista de interessados" entre visitas.</p>
+          </div>
+          <div class="col">
+            <div class="col-label">No B2B farmacêutico</div>
+            <p>Muito relevante — e em rápido crescimento. No contexto farmacêutico, a "pesquisa" acontece em duas dimensões: comparação de preços entre distribuidoras antes de fechar um pedido, e qualificação de novas distribuidoras/fornecedores antes de iniciar uma relação comercial.</p>
+            <p>Esse comportamento foi raro por muitos anos — em 2021, <strong>88,4% dos compradores não pesquisavam preços em outras farmácias antes da compra</strong>. Com a digitalização do setor, o cenário mudou radicalmente: em 2023, 30% dos compradores afirmaram comparar preços ativamente, o dobro do ano anterior.</p>
+            <p>No B2B, a pesquisa também inclui checagem de prazos, condições de pagamento, histórico de ruptura e reputação do fornecedor — muito além da comparação de preço simples.</p>
+          </div>
+        </div>
+        <div class="shopper-stat">
+          <div>
+            <div class="stat-num">2×</div>
+          </div>
+          <div>
+            <div class="stat-desc">o percentual de compradores que pesquisam preços antes de comprar dobrou em apenas 1 ano: de 15,3% em 2022 para 30% em 2023, sinalizando uma mudança estrutural de comportamento no setor</div>
+            <div class="stat-source">IFEPEC / Febrafar + Unicamp — Pesquisa Anual 2023 | Panpharma Revista</div>
+          </div>
+        </div>
+        <div class="shopper-insight">
+          <span class="insight-icon">→</span>
+          <p><strong>Implicação estratégica:</strong> Plataformas B2B que oferecem comparação de preço entre distribuidoras, histórico de variação de preço por item e score de performance de fornecedor (prazo médio, % de ruptura) atendem diretamente esse perfil crescente. A pesquisa que hoje sai da plataforma para o Google ou para o representante pode ser retida internamente com as informações certas.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ────────────── SHOPPER 4 ────────────── -->
+  <div class="section">
+    <div class="section-label">Perfil 4 de 5</div>
+    <div class="shopper s4">
+      <div class="shopper-head">
+        <div class="shopper-num">4</div>
+        <div class="shopper-name">Caçador de pechinchas</div>
+        <span class="fit-badge fit-alto">✓ Muito alto encaixe</span>
+      </div>
+      <div class="shopper-body">
+        <div class="cols">
+          <div class="col">
+            <div class="col-label">No e-commerce — NN/g</div>
+            <p>Busca a melhor oferta possível. Esse comportamento pode se sobrepor a outros perfis — alguém pode ser "focado no produto" e ao mesmo tempo caçar o menor preço. Precisa encontrar descontos facilmente e tende a usar cupons, comparadores e alertas de preço.</p>
+            <p>A NN/g observou usuários dispostos a gastar mais tempo e até mais dinheiro apenas para atingir o valor mínimo de uma promoção — um comportamento de ancoragem com forte apelo psicológico.</p>
+          </div>
+          <div class="col">
+            <div class="col-label">No B2B farmacêutico</div>
+            <p>É o perfil mais forte de todos no contexto B2B farmacêutico — e o que gera as estruturas comerciais mais sofisticadas do setor. Preço é o fator de atração número 1 declarado pelos compradores, e a dinâmica de negociação vai muito além do preço unitário: prazo de pagamento, bonificações, brindes e condições de entrega são variáveis ativamente negociadas.</p>
+            <p>A manifestação mais clara desse perfil no setor é o surgimento de redes associativistas e cooperativas de compra (Febrafar, Farma e Farma, FarMelhor), criadas especificamente para agregar o poder de barganha de farmácias independentes frente às grandes distribuidoras.</p>
+            <p>O PEC (Programa de Estratégias Competitivas) da Febrafar atingiu R$ 1 bilhão em vendas brutas em junho de 2025, com 9,7 milhões de transações — evidência direta da força desse perfil em escala.</p>
+          </div>
+        </div>
+        <div class="shopper-stat">
+          <div>
+            <div class="stat-num">88%</div>
+          </div>
+          <div>
+            <div class="stat-desc">dos compradores de farmácias apontam preço como o principal fator de atração — o maior percentual entre todos os fatores avaliados pela pesquisa</div>
+            <div class="stat-source">Sincofarma SP, 2024 — com base na Pesquisa IFEPEC/Febrafar + Unicamp, 7ª edição</div>
+          </div>
+        </div>
+        <div class="shopper-insight">
+          <span class="insight-icon">→</span>
+          <p><strong>Implicação estratégica:</strong> No B2B farmacêutico, o "caçador" não quer apenas um desconto pontual — quer a melhor condição total: preço + prazo + bonificação + giro garantido. Plataformas que tornam visível a economia gerada em cada cotação e facilitam o acesso a campanhas de distribuidoras transformam esse perfil em cliente recorrente de alta frequência.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ────────────── SHOPPER 5 ────────────── -->
+  <div class="section">
+    <div class="section-label">Perfil 5 de 5</div>
+    <div class="shopper s5">
+      <div class="shopper-head">
+        <div class="shopper-num">5</div>
+        <div class="shopper-name">Comprador único (one-time shopper)</div>
+        <span class="fit-badge fit-na">— Não se aplica</span>
+      </div>
+      <div class="shopper-body">
+        <div class="cols">
+          <div class="col">
+            <div class="col-label">No e-commerce — NN/g</div>
+            <p>Compradores de presente, cartões-presente ou destinatários de vale-presente. Não pretendem voltar ao site. Não conhecem a marca nem os produtos, precisam de navegação clara e ficam especialmente incomodados com cadastro obrigatório.</p>
+            <p>A principal recomendação da NN/g para esse perfil é o checkout como convidado ("guest checkout") — sem necessidade de criar conta para finalizar uma compra.</p>
+          </div>
+          <div class="col">
+            <div class="col-label">No B2B farmacêutico</div>
+            <p>Este perfil praticamente não existe. O modelo de negócio B2B farmacêutico é estruturalmente de longo prazo e relacional: preços individualizados por CNPJ, histórico de crédito, pedidos mínimos, bonificações por volume — todos esses mecanismos só fazem sentido dentro de uma relação comercial contínua e recorrente.</p>
+            <p>A própria lógica dos programas de fidelidade — dos quais mais de 90% dos compradores participam — é incompatível com a lógica transacional e anônima do comprador único. O setor farmacêutico tem uma das maiores taxas de fidelização do varejo brasileiro justamente porque a compra é recorrente por natureza.</p>
+          </div>
+        </div>
+        <div class="shopper-stat">
+          <div>
+            <div class="stat-num">92,5%</div>
+          </div>
+          <div>
+            <div class="stat-desc">dos compradores de farmácias participam de programas de fidelidade — a antítese exata do comprador único, que rejeita cadastros e não pretende retornar</div>
+            <div class="stat-source">IFEPEC / Febrafar + Unicamp — Pesquisa Anual 2023</div>
+          </div>
+        </div>
+        <div class="shopper-insight">
+          <span class="insight-icon">→</span>
+          <p><strong>Implicação estratégica:</strong> No B2B farmacêutico, o equivalente de "facilitar o primeiro acesso" não é o "guest checkout" do e-commerce — é o onboarding de uma nova distribuidora e a primeira compra de teste em volume reduzido. O foco é construir confiança para uma relação de longo prazo, não eliminar barreiras de entrada para uma transação única.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY TABLE -->
+  <div class="section">
+    <div class="section-label">Resumo comparativo</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:18%">Tipo (NN/g)</th>
+            <th style="width:16%">Encaixe B2B</th>
+            <th>Equivalente no contexto farmacêutico</th>
+            <th style="width:28%">Evidência principal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-name">Focado no produto</td>
+            <td class="td-fit" style="color:#059669">✓ Muito alto</td>
+            <td class="td-ev">Reposição de rotina via Curva ABC e importação de lista do ERP. Compra orientada por demanda previsível.</td>
+            <td class="td-ev" style="font-size:11px;color:#9CA3AF">68% das compras por demanda conhecida (IFEPEC 2021–2023)</td>
+          </tr>
+          <tr>
+            <td class="td-name">Browser / Navegador</td>
+            <td class="td-fit" style="color:#9A3412">⚠ Baixo</td>
+            <td class="td-ev">Ocorre via representante comercial, não via plataforma digital. Comportamento de descoberta existe mas é induzido externamente.</td>
+            <td class="td-ev" style="font-size:11px;color:#9CA3AF">30,2% do mix são não-medicamentos — única janela para descoberta (IFEPEC 2024)</td>
+          </tr>
+          <tr>
+            <td class="td-name">Pesquisador</td>
+            <td class="td-fit" style="color:#0284C7">↑ Alto e crescente</td>
+            <td class="td-ev">Comparação de preços entre distribuidoras e qualificação de novos fornecedores. Comportamento digital em rápido crescimento.</td>
+            <td class="td-ev" style="font-size:11px;color:#9CA3AF">Pesquisa de preço saltou de 15,3% (2022) para 30% (2023) — IFEPEC/Panpharma</td>
+          </tr>
+          <tr>
+            <td class="td-name">Caçador de pechinchas</td>
+            <td class="td-fit" style="color:#059669">✓ Muito alto</td>
+            <td class="td-ev">O perfil mais comercialmente relevante. Gera redes associativistas, cooperativas de compra e programas de fidelidade em escala.</td>
+            <td class="td-ev" style="font-size:11px;color:#9CA3AF">88% citam preço como fator #1; PEC Febrafar: R$1 bilhão/mês em jun/25</td>
+          </tr>
+          <tr>
+            <td class="td-name">Comprador único</td>
+            <td class="td-fit" style="color:#6B7280">— N/A</td>
+            <td class="td-ev">Estruturalmente incompatível. Relação B2B é contínua, baseada em crédito, CNPJ e histórico. 92,5% participam de programas de fidelidade.</td>
+            <td class="td-ev" style="font-size:11px;color:#9CA3AF">92,5% em programas de fidelidade (IFEPEC 2023)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- UNIQUE B2B CONTEXT -->
+  <div class="section">
+    <div class="section-label">O que o framework não captura</div>
+    <div class="context-box">
+      <h3>O perfil exclusivo do B2B farmacêutico: o comprador multi-loja</h3>
+      <p>O framework da NN/g foi desenvolvido para o contexto B2C individual — uma pessoa comprando para si. No B2B farmacêutico, existe um perfil sem equivalente no modelo original: <span class="highlight">o comprador que gerencia o estoque de múltiplas farmácias simultaneamente</span>.</p>
+      <p>Esse comprador — comum em redes regionais ou grupos de farmácias independentes sob gestão centralizada — não apenas multiplica o volume por loja, mas enfrenta desafios qualitativamente diferentes: consolidar demandas distintas, priorizar quais lojas atender primeiro, identificar itens em comum que poderiam ser comprados em volume único para obter condições melhores, e manter visibilidade sobre o status de pedidos de todas as unidades.</p>
+      <p>Plataformas B2B que suportam esse perfil com funcionalidades específicas — visão consolidada de urgência por loja, compra consolidada de itens em comum, painel de acompanhamento multi-loja — criam uma barreira competitiva que nenhum framework B2C foi concebido para endereçar.</p>
+    </div>
+  </div>
+
+  <!-- CONCLUSIONS -->
+  <div class="section">
+    <div class="section-label">Conclusões</div>
+    <div class="conclusion">
+      <div class="conclusion-card">
+        <h4>Dois perfis dominam</h4>
+        <p>Focado no produto e Caçador de pechinchas explicam a esmagadora maioria do comportamento de compra B2B farmacêutico. Qualquer plataforma que os sirva bem cobre a maior parte do volume.</p>
+      </div>
+      <div class="conclusion-card">
+        <h4>Pesquisador está crescendo</h4>
+        <p>A digitalização acelerou a pesquisa de preços no setor. Em dois anos, o percentual de compradores que comparam preços ativamente dobrou — e a tendência não deve parar.</p>
+      </div>
+      <div class="conclusion-card">
+        <h4>Browser precisa de estímulo</h4>
+        <p>O comportamento de descoberta existe no B2B, mas é quase exclusivamente induzido por representantes. Plataformas digitais têm uma oportunidade clara de capturar esse fluxo.</p>
+      </div>
+      <div class="conclusion-card">
+        <h4>Comprador único não existe aqui</h4>
+        <p>O B2B farmacêutico é estruturalmente relacional. Tentar aplicar lógicas de onboarding fácil e anônimo ("guest checkout") ignora como o setor funciona.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOURCES -->
+  <div class="sources">
+    <h4>Fontes e metodologia</h4>
+    <p>
+      <strong>IFEPEC / Febrafar + Unicamp</strong> — Pesquisa sobre o Comportamento do Consumidor em Farmácias no Brasil (edições 2021, 2022, 2023 e 2024). Amostra de 4 mil consumidores entrevistados presencialmente em porta de loja em todas as regiões brasileiras. Índice de confiança: 99%, margem de erro: 2%.<br>
+      <strong>Nielsen Norman Group</strong> — "Designing for 5 Types of E-Commerce Shoppers" (Amy Schade, 2014). nngroup.com/articles/ecommerce-shoppers/<br>
+      <strong>Sincofarma SP</strong> — "Comportamento do consumidor de farmácia" (maio 2024), com base na 7ª edição da Pesquisa IFEPEC.<br>
+      <strong>Panpharma Revista</strong> — "Como se comporta o consumidor das farmácias brasileiras?" — dados da 6ª edição da pesquisa IFEPEC 2023.<br>
+      <strong>InovaFarma</strong> — "Como escolher fornecedor farmacêutico" e "Mix de produtos ideal"; "Comportamento do consumidor no mercado farma" (2025).<br>
+      <strong>Febrafar</strong> — Programa PEC: dados de junho de 2025 (R$1 bilhão em vendas brutas, 9,7 milhões de transações, 5,3 milhões de consumidores únicos).<br>
+      <strong>Google / Agência Canna</strong> — "Comportamento do consumidor B2B: Os 3 maiores fatores de decisão" — estudo citado: 89% dos compradores B2B pesquisam fornecedores na internet.
+    </p>
+  </div>
+
+</div><!-- /page -->
+</body>
+</html>
